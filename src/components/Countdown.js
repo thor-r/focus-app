@@ -9,10 +9,13 @@ const minutesToMillis = (min) => min * 1000 * 60
 const formatTime = (time) => (time < 10 ? `0${time}` : time)
 
 export const Countdown = ({ minutes = 0.1, isPaused, onProgress, onEnd }) => {
+
+  // used to track the value of the timer in the set interval below
   const interval = React.useRef(null)
 
   const [millis, setMillis] = useState(null)
 
+  // ensuring that the time passed in is always the time previously given to millis
   const countDown = () => {
     setMillis((time) => {
       if (time === 0) {
@@ -39,6 +42,7 @@ export const Countdown = ({ minutes = 0.1, isPaused, onProgress, onEnd }) => {
       return
     }
 
+    // runs every second
     interval.current = setInterval(countDown, 1000)
 
     return () => clearInterval(interval.current)
