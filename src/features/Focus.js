@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable brace-style */
+
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { colors } from '../utils/colors'
+import { spacing } from '../utils/sizes'
 import { RoundedButton } from '../components/RoundedButton'
 
 
@@ -40,12 +40,12 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginRight: 10,
+    marginRight: spacing.sm,
     borderBottomRightRadius: '5px',
     borderBottomLeftRadius: '5px',
   },
   inputContainer: {
-    padding: 25,
+    padding: spacing.lg,
     justifyContent: 'top',
     flexDirection: 'row',
   },
