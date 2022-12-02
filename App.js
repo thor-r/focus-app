@@ -6,23 +6,21 @@ import { Focus } from './src/features/Focus'
 import { Timer } from './src/features/Timer'
 
 export default function App() {
-
-  const [currentSubject, setCurrentSubject] = useState(null)
-
+  const [currentSubject, setCurrentSubject] = useState(null);
   return (
-
     <SafeAreaView style={styles.container}>
-      {!currentSubject ? 
-        <Focus addSubject={setCurrentSubject} /> 
-        : 
+      
+      {!currentSubject ? (
+        <Focus addSubject={setCurrentSubject} />
+      ) : (
         <Timer 
           focusSubject={currentSubject}
           onTimerEnd={() => {}}
-          clearSubject={() => {}}
+          clearSubject={() => setCurrentSubject(null)}
         />
-      }
+      )}
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
