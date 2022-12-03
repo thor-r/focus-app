@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, Platform, Vibration } from "react-native";
 import { ProgressBar } from "react-native-paper";
 import { Countdown } from "../components/Countdown";
+import { useKeepAwake } from 'expo-keep-awake';
 import { RoundedButton } from "../components/RoundedButton";
 import { spacing } from "../utils/sizes";
 import { colors } from "../utils/colors"; 
@@ -17,10 +18,19 @@ const ONE_SECOND_IN_MS = 1000; // defining the millis
     1 * ONE_SECOND_IN_MS,
   ];
 
-export const Timer = ({ focusSubject, clearSubject }) => {
+export const Timer = ({ focusSubject, clearSubject, onTimerEnd }) => {
+  useKeepAwake()
   const [isStarted, setIsStarted] = useState(false);
   const [progress, setProgress] = useState(1);
   const [minutes, setMinutes] = useState(0.1);
+
+  const onEnd = (reset) => {
+    Vibration.vibrate(PATTERN)
+    setIsStarted(false)
+    setProgress(1)
+    reset()
+    onTimerEnd(focusSubject)
+  }
 
   
   return (
@@ -30,9 +40,7 @@ export const Timer = ({ focusSubject, clearSubject }) => {
           minutes={minutes}
           isPaused={!isStarted}
           onProgress={setProgress}  //set state is eqivalent of a function that takes the value and sets the value
-          onEnd={() => {
-            Vibration.vibrate(PATTERN)
-          }}
+          onEnd={onEnd}
         />
 
         <View style={{ paddingTop: spacing.xxl }}>
